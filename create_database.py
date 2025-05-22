@@ -1,7 +1,7 @@
 import sqlite3
 conn = sqlite3.connect("vehicle_parking_app.db")
 cur=conn.cursor()
-cur.execute("PRAGMA" foreign_keys = ON)
+cur.execute("PRAGMA" foreign_keys = ON;)
 cur.execute('''
 CREATE TABLE IF NOT EXISTS users(
     user_id TEXT PRIMARY KEY,
