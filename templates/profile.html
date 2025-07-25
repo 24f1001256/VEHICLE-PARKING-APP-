@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+PROFILE
+{% endblock %}
+
+{% block content %}
+<h1>Profile
+    <small class="text-muted">(@{{user.user_id}})</small>
+</h1>
+<hr>
+<h3>Edit Profile</h3>
+<form methods = "POST">
+     <label for="Name" class="form-label">Change Name:
+    <input type="text" name="name" id="name" class="form-control" required value="{{user.name}}"/>
+    </label>
+    <label for="userid" class="form-label">Change UserID:
+    <input type="text" name="user_id" id="user_id" class="form-control" required value="{{user.user_id}}"/>
+    </label>
+    <label for="email_id" class="form-label">Change Email ID:
+    <input type="text" name="email_id" id="email_id" class="form-control" required value="{{user.email_id}}"/>
+    </label>
+    <label for="phone" class="form-label">Change Phone Number:
+    <input type="number" name="phone" id="phone" class="form-control" required value="{{user.phone}}"/>
+    </label>
+    <label for="cpassword" class="form-label">Current Password:
+    <input type="password" name="cpassword" id="cpassword" class="form-control" required/>
+    </label>
+    <label for="password" class="form-label">Change Password:
+    <input type="password" name="password" id="password" class="form-control" required/>
+    </label>
+    <input type="submit" value="Save Changes" class="btn btn-success"/>
+</form>
+
+{% endblock %}
+
+{% block style %}
+<style>
+    form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    h1,h2,h3{
+        text-align: center;
+    }
+</style>
+{% endblock %}
