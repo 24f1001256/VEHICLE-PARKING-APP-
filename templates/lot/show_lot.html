@@ -21,12 +21,16 @@
                 </p>
 
                 <!-- Progress bar -->
-                <div class="progress mb-2">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ (lot.available / lot.capacity) * 100 }}%" aria-valuenow="{{ lot.available }}" aria-valuemin="0" aria-valuemax="{{ lot.capacity }}">
-                        Available
+                <div class="progress mb-2" style="height: 25px;">
+                    <div class="progress-bar bg-success" role="progressbar"
+                        style="width: {{ (lot.available / lot.capacity) * 100 }}%"
+                        aria-valuenow="{{ lot.available }}" aria-valuemin="0" aria-valuemax="{{ lot.capacity }}">
+                        {{ (lot.available / lot.capacity * 100) | round(1) }}% Available
                     </div>
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{ (lot.occupied / lot.capacity) * 100 }}%" aria-valuenow="{{ lot.occupied }}" aria-valuemin="0" aria-valuemax="{{ lot.capacity }}">
-                        Occupied
+                    <div class="progress-bar bg-danger" role="progressbar"
+                        style="width: {{ (lot.occupied / lot.capacity) * 100 }}%"
+                        aria-valuenow="{{ lot.occupied }}" aria-valuemin="0" aria-valuemax="{{ lot.capacity }}">
+                        {{ (lot.occupied / lot.capacity * 100) | round(1) }}% Occupied
                     </div>
                 </div>
             </div>
@@ -59,6 +63,12 @@
             },
             options: {
                 responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Parking Lot Summary'
+                    }
+                },
                 scales: {
                     y: {
                         beginAtZero: true,
