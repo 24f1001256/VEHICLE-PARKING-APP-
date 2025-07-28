@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Delete Lot
+{% endblock %}
+{% block content %}
+    <h1>Delete Lot</h1>
+    <p class="text text-danger"><b>Are you sure? You want to delete <strong>{{lot.lot_name}}</strong> lot?</b></p>
+    <form class="form" method="post">
+        <div>
+        <input type="submit" value="Delete Lot"  class="btn btn-success"/>
+        <input type="submit" value="Cancel" class="btn btn-danger" href="{{url_for('admin')}}">
+        </div>
+    </form>
+{% endblock %}
+{% block style %}
+    <style>
+        p{
+            text-align: center;
+            
+        }
+        h1{
+            text-align: center;
+        }
+        .form{
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+{% endblock %}

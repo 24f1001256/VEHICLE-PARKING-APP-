@@ -36,18 +36,20 @@ class ParkingLot (db.Model):
 
 class ParkingSpot (db.Model):  
      __tablename__ = 'parking_spot' 
-     spot_id = db.Column(db.String(250), nullable=False,primary_key=True)     
+     spot_id = db.Column(db.Integer, nullable=False,primary_key=True,autoincrement=True)     
      lot_id = db.Column(db.String(250), ForeignKey('parking_lot.lot_id'),nullable=False)
      spot_number = db.Column(db.Integer, nullable=False)
      availability = db.Column(db.Boolean, nullable=False)
+     vehicle_number = db.Column(db.String(64), ForeignKey('reservation.vehicle_number'), nullable=False)
 
 class Reservation(db.Model):  
      __tablename__ = 'reservation' 
      reservation_id = db.Column(db.Integer,primary_key=True)
-     spot_id = db.Column(db.String(250),ForeignKey('parking_spot.spot_id'), nullable=False )
+     spot_id = db.Column(db.Integer,ForeignKey('parking_spot.spot_id'), nullable=False )
      user_id = db.Column(db.String(32),ForeignKey('users.user_id'), nullable=True) #foreign key?
      parking_in_time = db.Column(db.DateTime, nullable=False)
      parking_out_time = db.Column(db.DateTime, nullable=False)
+     vehicle_number = db.Column(db.String(64), nullable=False)
 
 with app.app_context():
      db.create_all()

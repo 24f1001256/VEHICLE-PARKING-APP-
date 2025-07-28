@@ -29,7 +29,10 @@ PROFILE
     <label for="password" class="form-label">Change Password:
     <input type="password" name="password" id="password" class="form-control" required/>
     </label>
-    <input type="submit" value="Save Changes" class="btn btn-success"/>
+    <div class="d-flex gap-2 mt-3">
+        <input type="submit" value="Save Changes" class="btn btn-success"/>
+        <a href="{{url_for('logout')}}" class="btn btn-outline-danger text-center">Logout</a>
+    </div>
 </form>
 
 {% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+{% block title %}
+    ADMIN DASHBOARD
+{% endblock %}
+{% block content %}
+    <h1>Admin Dashboard</h1>
+    <div class="parts">
+        <h2 class="text-muted">Parking Lot</h2>
+            <a class="btn btn-success" href="{{url_for('add_lot')}}">
+                <i class="fas fa-plus fa-xs"></i>
+                Create Lot 
+            </a>
+            {#
+            <a class="btn btn-success" href="{{url_for('delete_lot')}}">
+                <i class="fas fa-minus fa-xs"></i>
+                Delete Lot 
+            </a>
+            <a class="btn btn-success" href="{{url_for('edit_lot')}}">
+                Edit Lot 
+            </a>
+            #}
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Lot Name</th>
+                <th>Location</th>
+                <th>No. of spots in lot</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lot in parking_lot %}
+                <tr>
+                    <td>{{lot.lot_id}}</td>
+                    <td>{{lot.lot_name}}</td>
+                    <td>{{lot.location}}</td>
+                    <td>{{lot.capacity}}</td>
+                    <td>
+                        <a class="btn btn-outline-success" href="{{url_for('show_lot', lot_id=lot.lot_id)}}">
+                            <i class="fas fa-comment-dots"></i>
+                            Show
+                        </a>
+                        <a class="btn btn-primary" href="{{url_for('edit_lot', lot_id=lot.lot_id)}}">
+                            <i class="fas fa-edit fa-xs"></i>
+                            Edit
+                        </a>
+                        <a class="btn btn-danger" href="{{url_for('delete_lot', lot_id=lot.lot_id)}}">
+                        <i class="fas fa-trash fa-xs"></i>
+                        Delete
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="parts">
+        <h2 class="text-muted">Parking Spot</h2>
+        <a class="btn btn-success" href="{{url_for('summary')}}">
+            View Summary
+        </a>
+    </div>
+{% endblock %}
+{% block style %}
+<style>
+    .parts{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    h1,h2{
+        text-align: center;
+    }
+</style>
+{% endblock %}

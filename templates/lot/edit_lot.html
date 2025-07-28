@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% block title %}
+    Edit Parking Lot
+{% endblock %}
+
+{% block content %}
+    <h1>Edit Parking Lot</h1>
+    <form class="form" method="post">
+        <label for="lot_id" class="form-label">Lot ID:
+            <input type="text" name="lot_id" id="lot_id" class="form-control" value="{{ lot.lot_id }}" readonly/>
+        </label>
+        <label for="lot_name" class="form-label">Lot Name:
+            <input type="text" name="lot_name" id="lot_name" class="form-control" value="{{ lot.lot_name }}" required/>
+        </label>
+        <label for="location" class="form-label">Location:
+            <input type="text" name="location" id="location" class="form-control" value="{{ lot.location }}" required/>
+        </label>
+        <label for="capacity" class="form-label">Capacity:
+            <input type="number" name="capacity" id="capacity" class="form-control" value="{{ lot.capacity }}" min="1" required/>
+        </label>
+        <input type="submit" value="Update Lot" class="btn btn-primary"/>
+    </form>
+{% endblock %}
+
+{% block style %}
+<style>
+    h1 {
+        text-align: center;
+    }
+    .form {
+        margin-top: 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+{% endblock %}
