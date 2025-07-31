@@ -18,6 +18,9 @@
         <label for="capacity" class="form-label">Capacity:
             <input type="number" name="capacity" id="capacity" class="form-control" value="{{ lot.capacity }}" min="1" required/>
         </label>
+        <label for="per_hour_cost" class="form-label">Cost per hour:
+            <input type="float" name="per_hour_cost" id="per_hour_cost" class="form-control" value="{{ lot.per_hour_cost }}" min="1" required/>
+        </label>
         <input type="submit" value="Update Lot" class="btn btn-primary"/>
     </form>
 {% endblock %}

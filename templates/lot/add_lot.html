@@ -17,6 +17,9 @@
         <label for="capacity" class="form-label">Capacity:
             <input type="number" name="capacity" id="capacity" class="form-control" required/>
         </label>
+        <label for="per_hour_cost" class="form-label">Cost Per hour:
+            <input type="number" step="0.01" name="per_hour_cost" id="per_hour_cost" class="form-control" required/>
+        </label>
         <input type="submit" value="Add Lot"  class="btn btn-success"/>
     </form>
 {% endblock %}

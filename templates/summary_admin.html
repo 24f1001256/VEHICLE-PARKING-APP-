@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %}Admin Summary{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h2 class="text-center">Parking Lot Usage Summary</h2>
+  <canvas id="lotUsageChart" width="600" height="300"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('lotUsageChart').getContext('2d');
+
+  const chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: {{ lot_names|tojson }},
+      datasets: [
+        {
+          label: 'Total Spots',
+          data: {{ total_spots|tojson }},
+          backgroundColor: 'rgba(54, 162, 235, 0.6)',
+        },
+        {
+          label: 'Booked Spots',
+          data: {{ booked_spots|tojson }},
+          backgroundColor: 'rgba(255, 99, 132, 0.6)',
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Parking Lot Usage Comparison'
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            precision: 0
+          }
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}

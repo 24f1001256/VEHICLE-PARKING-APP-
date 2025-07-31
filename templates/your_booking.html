@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block title %}Your Booking{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Your Current Booking(s)</h2>
+  {% if bookings %}
+  <table class="table table-striped mt-3">
+    <thead><tr>
+      <th>Lot</th><th>Spot</th><th>Vehicle</th><th>In Time</th><th>Out Time</th>
+    </tr></thead>
+    <tbody>
+      {% for b in bookings %}
+      <tr>
+        <td>{{ b.parking_spot.lot_id }}</td>
+        <td>{{ b.parking_spot.spot_number }}</td>
+        <td>{{ b.vehicle_number }}</td>
+        <td>{{ b.parking_in_time }}</td>
+        <td>{{ b.parking_out_time }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p>No current bookings.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,9 +1,31 @@
 {% extends 'layout.html' %}
-
+{% block title %}USER DASHBOARD{% endblock %}
 {% block content %}
-<br></br>
-WELCOME TO HOME PAGE
-<br></br>
-<b>Hello {{user.name}}!</b>
-{% endblock %}
+  {% include 'searchbar.html' %}
+  <h1 class="text-center my-4">User Dashboard</h1>
 
+  <table class="table table-striped">
+    <thead class="table-light">
+      <tr>
+        <th>S.No</th><th>Lot Name</th><th>Location</th>
+        <th>Available Spots</th><th>Cost/hr (₹)</th><th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in lot_data %}
+      <tr>
+    <td>{{ item.lot.lot_id }}</td>
+    <td>{{ item.lot.lot_name }}</td>
+    <td>{{ item.lot.location }}</td>
+    <td>{{ item.available_spots }}</td>
+    <td>{{ item.lot.per_hour_cost }}</td>
+    <td>
+        <a class="btn btn-success" href="{{ url_for('book_spot', lot_id=item.lot.lot_id) }}">
+        + Book Spot
+        </a>
+    </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

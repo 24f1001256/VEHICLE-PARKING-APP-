@@ -6,35 +6,63 @@ PROFILE
 
 {% block content %}
 <h1>Profile
-    <small class="text-muted">(@{{user.user_id}})</small>
+    <small class="id_of_user">(@{{user.user_id}})</small>
 </h1>
 <hr>
 <h3>Edit Profile</h3>
-<form methods = "POST">
-     <label for="Name" class="form-label">Change Name:
-    <input type="text" name="name" id="name" class="form-control" required value="{{user.name}}"/>
+{% if not user.is_admin %}
+    <form methods = "POST">
+        <label for="Name" class="form-label">Change Name:
+        <input type="text" name="name" id="name" class="form-control" required value="{{user.name}}"/>
+        </label>
+        <label for="userid" class="form-label">Change UserID:
+        <input type="text" name="user_id" id="user_id" class="form-control" required value="{{user.user_id}}"/>
+        </label>
+        <label for="email_id" class="form-label">Change Email ID:
+        <input type="text" name="email_id" id="email_id" class="form-control" required value="{{user.email_id}}"/>
+        </label>
+        <label for="phone" class="form-label">Change Phone Number:
+        <input type="number" name="phone" id="phone" class="form-control" required value="{{user.phone}}"/>
+        </label>
+        <label for="cpassword" class="form-label">Current Password:
+        <input type="password" name="cpassword" id="cpassword" class="form-control" required/>
+        </label>
+        <label for="password" class="form-label">Change Password:
+        <input type="password" name="password" id="password" class="form-control" required/>
+        </label>
+        <div class="d-flex gap-2 mt-3">
+            <input type="submit" value="Save Changes" class="btn btn-success"/>
+            <a href="{{url_for('logout')}}" class="btn btn-outline-danger text-center">Logout</a>
+        </div>
+    </form>
+{% else %}
+<form method="POST">
+    <label class="form-label">Name:
+        <input type="text" class="form-control" value="{{ user.name }}" readonly />
     </label>
-    <label for="userid" class="form-label">Change UserID:
-    <input type="text" name="user_id" id="user_id" class="form-control" required value="{{user.user_id}}"/>
+
+    <label class="form-label">User ID:
+        <input type="text" class="form-control" value="{{ user.user_id }}" readonly />
     </label>
-    <label for="email_id" class="form-label">Change Email ID:
-    <input type="text" name="email_id" id="email_id" class="form-control" required value="{{user.email_id}}"/>
+
+    <label class="form-label">Email ID:
+        <input type="email" class="form-control" value="{{ user.email_id }}" readonly />
     </label>
-    <label for="phone" class="form-label">Change Phone Number:
-    <input type="number" name="phone" id="phone" class="form-control" required value="{{user.phone}}"/>
-    </label>
+
     <label for="cpassword" class="form-label">Current Password:
-    <input type="password" name="cpassword" id="cpassword" class="form-control" required/>
+        <input type="password" name="cpassword" id="cpassword" class="form-control" required/>
     </label>
-    <label for="password" class="form-label">Change Password:
-    <input type="password" name="password" id="password" class="form-control" required/>
+
+    <label for="password" class="form-label">New Password:
+        <input type="password" name="password" id="password" class="form-control" required/>
     </label>
+
     <div class="d-flex gap-2 mt-3">
-        <input type="submit" value="Save Changes" class="btn btn-success"/>
-        <a href="{{url_for('logout')}}" class="btn btn-outline-danger text-center">Logout</a>
+        <input type="submit" value="Change Password" class="btn btn-primary"/>
+        <a href="{{ url_for('logout') }}" class="btn btn-outline-danger">Logout</a>
     </div>
 </form>
-
+{% endif %}
 {% endblock %}
 
 {% block style %}
@@ -43,9 +71,20 @@ PROFILE
         display: flex;
         flex-direction: column;
         align-items: center;
+        color: #fff;
+        text-shadow: 2px 2px 5px #000;
     }
     h1,h2,h3{
         text-align: center;
+        color: #fff;
+        text-shadow: 2px 2px 5px #000;
+    }
+    body {
+        background: url("{{ url_for('static', filename='bg_profile.jpg') }}") no-repeat center center fixed;
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
     }
 </style>
 {% endblock %}

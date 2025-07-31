@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% block title %}
+HOME-VEHICLE PARKING APP    
+{% endblock %}
+{% block content %}
+<h1>WELCOME TO HOME PAGE</h1>
+<div>
+    <p>This is the homepage for the vehicle parking app. Using the Navigation bar, you can navigate to all the pages that is accessible for your session </p>
+</div>
+
+<b>Hello {{user.name}}!</b>
+{% endblock %}
+{% block style %}
+<style>
+    body {
+        background: url("{{ url_for('static', filename='bg_home.jpeg') }}") no-repeat center center fixed;
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+        color: #fff;
+        margin-top: 40px;
+        text-shadow: 2px 2px 5px #ff0000;
+    }
+
+    div p {
+        font-size: 1.2rem;
+        color: #f1f1f1;
+        text-align: center;
+        margin-top: 30px;
+        padding: 0 10%;
+        text-shadow: 1px 1px 3px #000;
+    }
+
+    b {
+        display: block;
+        text-align: center;
+        color: rgb(255, 168, 6);
+        font-size: 4rem;
+        text-shadow: 1px 1px 2px #000;
+        margin-top: 30px;
+    }
+</style>
+{% endblock %}

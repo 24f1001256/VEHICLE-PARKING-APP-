@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block title %}Book Spot{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Book a Spot: {{ lot.lot_name }}</h2>
+  <div class="card mb-4">
+    <div class="card-body">
+      <p><strong>Location:</strong> {{ lot.location }}</p>
+      <p><strong>Available Spots:</strong> {{ available_spots }}</p>
+      <p><strong>Cost per Hour:</strong> ₹{{ lot.per_hour_cost }}</p>
+    </div>
+  </div>
+
+  {% if available_spots > 0 %}
+    <form action="{{ url_for('reserve') }}" method="POST">
+        <input type="hidden" name="lot_id" value="{{ lot.lot_id }}">
+        <div class="mb-3">
+        <label class="form-label">Vehicle Number</label>
+        <input type="text" name="vehicle_number" class="form-control" required>
+        </div>
+        <div class="mb-3">
+        <label class="form-label">In Time</label>
+        <input type="datetime-local" name="in_time" class="form-control" required>
+        </div>
+        <div class="mb-3">
+        <label class="form-label">Out Time</label>
+        <input type="datetime-local" name="out_time" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Confirm Booking</button>
+    </form>
+    {% else %}
+        <div class="alert alert-warning">No available spots in this lot.</div>
+  {% endif %}
+</div>
+{% endblock %}

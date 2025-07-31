@@ -9,18 +9,21 @@
       <ul class="navbar-nav">
         <!--render auth links if logged in or else normal links-->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{url_for('index')}}">Home</a>
+          <a class="nav-link active" aria-current="page" href="{{url_for('home')}}">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{url_for('aboutus')}}">About Us</a>
         </li>
         {% if user %}
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('profile')}}">Profile</a> <!--Your active booking--><!--Available-->
+          <a class="nav-link" href="{{url_for('index')}}">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('profile')}}">Profile</a> 
         </li>
         {% if not user.is_admin %}
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('booking')}}">Your Booking</a>
+          <a class="nav-link" href="{{url_for('your_booking')}}">Your Booking</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{url_for('summary')}}">Summary</a>
@@ -31,6 +34,12 @@
         {% else %}
         <li class="nav-item">
           <a class="nav-link" href="{{url_for('view_users')}}">Users</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('summary')}}">Summary</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
         </li>
         {% endif %}
         {% else %}

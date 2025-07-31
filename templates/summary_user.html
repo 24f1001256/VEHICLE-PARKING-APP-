@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block title %}Your Bookings Summary{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h2 class="text-center">Your Parking Lot Bookings</h2>
+  {% if lot_names %}
+  <canvas id="userChart" width="600" height="300"></canvas>
+  {% else %}
+  <p class="text-center text-muted">You haven't booked any spots yet.</p>
+  {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('userChart')?.getContext('2d');
+  if (ctx) {
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: {{ lot_names|tojson }},
+        datasets: [{
+          label: 'Number of Spots Booked',
+          data: {{ bookings_per_lot|tojson }},
+          maxBarThickness: 40,
+          minBarLength: 2,
+          backgroundColor: 'rgba(153, 102, 255, 0.6)',
+          barThickness: 30  // 👈 Try 20–30 for thinner bars
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Your Bookings by Lot'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0
+            }
+          }
+        }
+      }
+    });
+  }
+</script>
+{% endblock %}

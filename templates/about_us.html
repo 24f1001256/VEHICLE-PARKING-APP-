@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% block title %}
+About Us
+{% endblock %}
+{% block content %}
+<h1>ABOUT US</h1>
+<div class="text-center my-4">
+    <img src="{{ url_for('static', filename='banner pic.jpg') }}" alt="About Us Banner" class="img-fluid rounded shadow">
+</div>
+
+<div class="container">
+    <p class="lead text-justify">
+        This Web Application is developed as a part of the <strong>IIT Madras BS-Degree</strong> Project Component of the <strong>"Modern Application Development-1"</strong> course.
+        Built with Python, Flask, SQLite3, HTML/CSS, and Bootstrap, this platform is tailored for <strong>4-wheeler parking management</strong>.
+
+    </p>
+    <p class="text-justify">
+        The application has two types of users: <strong>Admin</strong> and <strong>Users</strong>. Admins can manage parking lots, view summaries, and monitor registered users. 
+        Users can seamlessly book parking spots and track their active bookings from the "Your Booking" page.
+    </p>
+    <h2>HAPPY BOOKING!</h2>
+</div>
+
+{% endblock %}
+{% block style %}
+<style>
+h1 {
+    margin-top: 30px;
+    text-align: center;
+    color: #005b6e;
+    font-weight: bold;
+}
+h2 {
+    color: #008080;
+    text-align: center;
+}
+p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+</style>
+{% endblock %}

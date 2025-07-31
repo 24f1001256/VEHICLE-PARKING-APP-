@@ -27,6 +27,7 @@
                 <th>Lot Name</th>
                 <th>Location</th>
                 <th>No. of spots in lot</th>
+                <th>Cost per Hour</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -37,6 +38,7 @@
                     <td>{{lot.lot_name}}</td>
                     <td>{{lot.location}}</td>
                     <td>{{lot.capacity}}</td>
+                    <td>{{lot.per_hour_cost}}</td>
                     <td>
                         <a class="btn btn-outline-success" href="{{url_for('show_lot', lot_id=lot.lot_id)}}">
                             <i class="fas fa-comment-dots"></i>
@@ -55,22 +57,46 @@
             {% endfor %}
         </tbody>
     </table>
-    <div class="parts">
-        <h2 class="text-muted">Parking Spot</h2>
-        <a class="btn btn-success" href="{{url_for('summary')}}">
-            View Summary
-        </a>
-    </div>
 {% endblock %}
 {% block style %}
 <style>
-    .parts{
+    .parts {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        padding-bottom: 10px;
     }
-    h1,h2{
+
+    h1, h2 {
         text-align: center;
+    }
+
+    .table {
+        margin-top: 20px;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .table th, .table td {
+        border: 1px solid #dee2e6;
+        padding: 12px;
+        text-align: center;
+    }
+
+    .table thead {
+        background-color: #e9ecef;
+    }
+
+    .btn {
+        margin: 4px;
+        transition: 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
     }
 </style>
 {% endblock %}

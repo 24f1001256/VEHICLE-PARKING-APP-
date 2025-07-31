@@ -19,23 +19,61 @@ Login-Vehicle Parking
 
 {% block style %}
 <style>
-    body{
-        background-color: #c2ffed;
+    body {
+        background: url('/static/parking-bg.jpg') no-repeat center center fixed;
+        background-size: cover;
+        font-family: 'Segoe UI', sans-serif;
+        margin: 0;
+        padding: 0;
     }
-    form{
+
+    h1 {
+        margin-top: 40px;
+        text-align: center;
+        color: #fff;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    form {
+        background-color: rgba(255, 255, 255, 0.96);
+        padding: 30px 40px;
+        border-radius: 10px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
         display: flex;
         flex-direction: column;
         align-items: center;
-        
+        max-width: 360px;
+        margin: 40px auto;
     }
-    h1{
-        margin-top: 64px;
-        text-align: center;
+
+    label {
+        width: 100%;
+        font-weight: 500;
+        margin-top: 10px;
+        color: #333;
     }
+
     .form-control {
-        width: 250px;
-        margin: 8px 0;
-        padding: 8px;
+        width: 100%;
+        margin: 6px 0 16px 0;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+    }
+
+    .btn-success {
+        width: 100%;
+        padding: 10px;
+        font-weight: bold;
+        background-color: #007bff;
+        border: none;
+        border-radius: 6px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-success:hover {
+        background-color: #0056b3;
     }
 </style>
 {% endblock %}
