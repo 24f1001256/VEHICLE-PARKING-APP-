@@ -464,28 +464,6 @@ def book_spot(lot_id):
     available_spots = ParkingSpot.query.filter_by(lot_id=lot_id, availability=True).count()
     return render_template('book_spot.html', lot=lot, available_spots=available_spots)
 
-@app.route('/release/<int:reservation_id>', methods=['POST'])
-@auth_required
-def release_reservation(reservation_id):
-    reservation = Reservation.query.get_or_404(reservation_id)
-
-    # Ensure the booking belongs to the logged-in user
-    if reservation.user_id != session['user_id']:
-        flash("Not authorized to release this booking.", "danger")
-        return redirect(url_for('your_booking'))
-
-    # Free up the parking spot
-    spot = ParkingSpot.query.get(reservation.spot_id)
-    if spot:
-        spot.availability = True
-
-    # Delete or mark reservation as ended
-    db.session.delete(reservation)
-    db.session.commit()
-
-    flash("Booking released and spot is now available.", "success")
-    return redirect(url_for('your_booking'))
-
 @app.route("/release/<int:reservation_id>", methods=["POST"])
 @auth_required
 def release_reservation(reservation_id):
