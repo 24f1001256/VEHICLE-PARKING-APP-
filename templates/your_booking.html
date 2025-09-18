@@ -16,6 +16,12 @@
         <td>{{ b.vehicle_number }}</td>
         <td>{{ b.parking_in_time }}</td>
         <td>{{ b.parking_out_time }}</td>
+        <td>
+        <form action="{{ url_for('release_reservation', reservation_id=booking.reservation_id) }}" method="POST" style="display:inline;">
+          <button type="submit" class="btn btn-danger btn-sm">Release</button>
+        </form>
+      </td>
+
       </tr>
       {% endfor %}
     </tbody>
