@@ -5,34 +5,16 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="text-center mb-4">All Parking Lots</h1>
+    <h1 class="text-center mb-4">Lot Details: {{ lot.lot_name }}</h1>
 
-    <div class="container">
-        <table class="table table-bordered table-hover table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>Lot ID</th>
-                    <th>Name</th>
-                    <th>Location</th>
-                    <th>Total Capacity</th>
-                    <th>Occupied Slots</th>
-                    <th>Available Slots</th>
-                    <th>Cost per Hour</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for lot in lots %}
-                <tr>
-                    <td>{{ lot.lot_id }}</td>
-                    <td>{{ lot.lot_name }}</td>
-                    <td>{{ lot.location }}</td>
-                    <td>{{ lot.capacity }}</td>
-                    <td>{{ lot.occupied if lot.occupied is defined else 0 }}</td>
-                    <td>{{ lot.capacity - (lot.occupied if lot.occupied is defined else 0) }}</td>
-                    <td>{{ lot.per_hour_cost }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+<div class="container">
+  <table class="table table-bordered">
+    <tr><th>Lot ID</th><td>{{ lot.lot_id }}</td></tr>
+    <tr><th>Location</th><td>{{ lot.location }}</td></tr>
+    <tr><th>Total Capacity</th><td>{{ lot.capacity }}</td></tr>
+    <tr><th>Occupied Spots</th><td>{{ occupied }}</td></tr>
+    <tr><th>Available Spots</th><td>{{ available }}</td></tr>
+    <tr><th>Cost per Hour</th><td>{{ lot.per_hour_cost }}</td></tr>
+  </table>
+</div>
 {% endblock %}
