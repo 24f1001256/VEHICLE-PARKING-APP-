@@ -283,25 +283,30 @@ def edit_lot_post(lot_id):
     new_location = request.form.get('location')
     new_capacity = int(request.form.get('capacity'))
 
+    # Count how many spots are currently occupied
+    occupied_spots = ParkingSpot.query.filter_by(lot_id=lot_id, availability=False).count()
+
+    if new_capacity < occupied_spots:
+        flash(f"Cannot reduce capacity below {occupied_spots}. There are active bookings.", "danger")
+        return redirect(url_for('edit_lot', lot_id=lot_id))
+
     if new_capacity < lot.capacity:
-
-        extra_spots = ParkingSpot.query.filter(
-            ParkingSpot.lot_id == lot_id,
-            ParkingSpot.spot_number > new_capacity,
-            ParkingSpot.availability == False  
-        ).all()
-        if extra_spots:
-            flash("Cannot reduce capacity. Some spots beyond this limit are occupied.")
-            return redirect(url_for('edit_lot', lot_id=lot_id))
-
+        # Remove only extra AVAILABLE spots
         ParkingSpot.query.filter(
             ParkingSpot.lot_id == lot_id,
-            ParkingSpot.spot_number > new_capacity
+            ParkingSpot.spot_number > new_capacity,
+            ParkingSpot.availability == True
         ).delete()
 
     elif new_capacity > lot.capacity:
+        # Add new spots
         for i in range(lot.capacity + 1, new_capacity + 1):
-            new_spot = ParkingSpot(lot_id=lot_id, spot_number=i, availability=True)
+            new_spot = ParkingSpot(
+                spot_id=str(lot_id) + str(i),  # ensure unique string id
+                lot_id=lot_id,
+                spot_number=i,
+                availability=True
+            )
             db.session.add(new_spot)
 
     lot.lot_name = new_name
