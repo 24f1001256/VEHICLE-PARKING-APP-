@@ -1,33 +1,42 @@
 {% extends 'layout.html' %}
-{% block title %}Your Booking{% endblock %}
-{% block content %}
-<div class="container mt-4">
-  <h2>Your Current Booking(s)</h2>
-  {% if bookings %}
-  <table class="table table-striped mt-3">
-    <thead><tr>
-      <th>Lot</th><th>Spot</th><th>Vehicle</th><th>In Time</th><th>Out Time</th>
-    </tr></thead>
-    <tbody>
-      {% for b in bookings %}
-      <tr>
-        <td>{{ b.parking_spot.lot_id }}</td>
-        <td>{{ b.parking_spot.spot_number }}</td>
-        <td>{{ b.vehicle_number }}</td>
-        <td>{{ b.parking_in_time }}</td>
-        <td>{{ b.parking_out_time }}</td>
-        <td>
-        <form action="{{ url_for('release_reservation', reservation_id=booking.reservation_id) }}" method="POST" style="display:inline;">
-          <button type="submit" class="btn btn-danger btn-sm">Release</button>
-        </form>
-      </td>
 
+{% block title %}Your Bookings{% endblock %}
+
+{% block content %}
+<h1>Your Bookings</h1>
+
+{% if bookings %}
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Reservation ID</th>
+        <th>Lot</th>
+        <th>Spot Number</th>
+        <th>Vehicle Number</th>
+        <th>In Time</th>
+        <th>Out Time</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for booking in bookings %}
+      <tr>
+        <td>{{ booking.reservation_id }}</td>
+        <td>{{ booking.parking_spot.lot_id }}</td>
+        <td>{{ booking.parking_spot.spot_number }}</td>
+        <td>{{ booking.vehicle_number }}</td>
+        <td>{{ booking.parking_in_time.strftime("%Y-%m-%d %H:%M") }}</td>
+        <td>{{ booking.parking_out_time.strftime("%Y-%m-%d %H:%M") }}</td>
+        <td>
+          <form action="{{ url_for('release_reservation', reservation_id=booking.reservation_id) }}" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-danger btn-sm">Release</button>
+          </form>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
-  {% else %}
-    <p>No current bookings.</p>
-  {% endif %}
-</div>
+{% else %}
+  <p class="text-warning">You have no bookings yet.</p>
+{% endif %}
 {% endblock %}
