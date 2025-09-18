@@ -104,6 +104,8 @@ def login_post():
         return redirect(url_for('login'))
 
     session['user_id'] = user.user_id
+    user.last_logged_in = datetime.utcnow()
+    db.session.commit()
     #login_sucessful
     return redirect(url_for('home'))    
 
@@ -319,9 +321,15 @@ def edit_lot_post(lot_id):
 @app.route('/admin/<string:lot_id>/show')
 @admin_required
 def show_lot(lot_id):
-    user = Users.query.get(session['user_id'])
-    lot=ParkingLot.query.get(lot_id)
-    return render_template('lot/show_lot.html',user=user,lot=lot)
+    lot = ParkingLot.query.get(lot_id)
+    if not lot:
+        flash("Lot not found.", "danger")
+        return redirect(url_for('admin'))
+
+    occupied = ParkingSpot.query.filter_by(lot_id=lot_id, availability=False).count()
+    available = lot.capacity - occupied
+
+    return render_template('lot/show_lot.html', lot=lot, occupied=occupied, available=available)
 
 @app.route('/admin/<string:lot_id>/delete', methods=['POST'])
 @admin_required
