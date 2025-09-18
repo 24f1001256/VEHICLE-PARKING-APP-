@@ -473,3 +473,23 @@ def release_reservation(reservation_id):
 
     flash("Booking released and spot is now available.", "success")
     return redirect(url_for('your_booking'))
+
+@app.route("/release/<int:reservation_id>", methods=["POST"])
+@auth_required
+def release_reservation(reservation_id):
+    reservation = Reservation.query.get_or_404(reservation_id)
+
+    # only allow the user who booked to release
+    if reservation.user_id != session['user_id']:
+        flash("Unauthorized action.", "danger")
+        return redirect(url_for('your_booking'))
+
+    # make the spot available again
+    spot = ParkingSpot.query.get(reservation.spot_id)
+    spot.availability = True
+
+    db.session.delete(reservation)
+    db.session.commit()
+
+    flash("Booking released successfully.", "success")
+    return redirect(url_for("your_booking"))
