@@ -443,6 +443,18 @@ def reserve():
 @auth_required
 def your_booking():
     bookings = Reservation.query.filter_by(user_id=session['user_id']).all()
+    now = datetime.utcnow()
+
+    # Auto-release expired bookings
+    for booking in bookings[:]:  # copy of list so we can modify safely
+        if booking.parking_out_time < now:
+            spot = ParkingSpot.query.get(booking.spot_id)
+            if spot:
+                spot.availability = True
+            db.session.delete(booking)
+            db.session.commit()
+            bookings.remove(booking)  # remove from list so user doesn’t see it
+
     return render_template('your_booking.html', bookings=bookings)
 
 @app.route('/booking/<string:lot_id>')
